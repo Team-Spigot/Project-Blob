@@ -51,7 +51,6 @@ namespace Project_Blob
 
 		public override void Update(GameTime gameTime)
 		{
-
 			base.Update(gameTime);
 		}
 

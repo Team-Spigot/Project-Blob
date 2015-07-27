@@ -23,6 +23,8 @@ namespace Project_Blob
 		public List<Tiles> TileList = new List<Tiles>();
 		Random rng = new Random();
 
+		KeyboardState keyboardState, previousKeyboardState;
+
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -74,13 +76,24 @@ namespace Project_Blob
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+			keyboardState = Keyboard.GetState();
+
 			// Allows the game to exit
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 
+			if (keyboardState.IsKeyUp(Keys.F5) && previousKeyboardState.IsKeyDown(Keys.F5))
+			{
+				TileList.RemoveRange(0, TileList.Count);
+
+				GenerateSquares();
+			}
+
 			// TODO: Add your update logic here
 
 			base.Update(gameTime);
+
+			previousKeyboardState = keyboardState;
 		}
 
 		/// <summary>
