@@ -19,6 +19,10 @@ namespace Project_Blob
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
+		Texture2D TileSpriteSheet;
+		public List<Tiles> TileList = new List<Tiles>();
+		Random rng = new Random();
+
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -46,6 +50,10 @@ namespace Project_Blob
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
+
+			TileSpriteSheet = Content.Load<Texture2D>(@"images\tiles");
+
+			GenerateSquares();
 
 			// TODO: use this.Content to load your game content here
 		}
@@ -85,7 +93,25 @@ namespace Project_Blob
 
 			// TODO: Add your drawing code here
 
+			spriteBatch.Begin();
+				foreach (Tiles t in TileList)
+				{
+					t.Draw(gameTime, spriteBatch);
+				}
+			spriteBatch.End();
+
 			base.Draw(gameTime);
+		}
+
+		protected void GenerateSquares()
+		{
+			for (int x = 0; x < 8; x++)
+			{
+				for (int y = 0; y < 8; y++)
+				{
+					TileList.Add(new Tiles(TileSpriteSheet, new Vector2(30 * x, 30 * y), Color.White, rng.Next(5)));
+				}
+			}
 		}
 	}
 }
